@@ -5,25 +5,133 @@ const Home = () => {
     <>
       {/* HERO SECTION */}
       <section
-        className="hero w-full min-h-screen xl:h-[780px] bg-cover bg-center flex items-center justify-center relative -mt-16"
+        className="hero w-full min-h-screen bg-cover bg-center bg-fixed relative flex items-center justify-center"
         style={{
           backgroundImage: `url(${heroBG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          width: "100%",
-          height: "100vh",
         }}
       >
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-center">
-          <h1 className="text-5xl text-white font-bold">Welcome to FCTroll</h1>
-          <p className="text-white mt-2 text-lg">
-            Experience the best football content.
-          </p>
+        <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-6 pb-4 text-4xl font-bold text-white md:text-6xl">
+              TrollFC get some fun football contents.
+            </h1>
+            <p className="mx-auto mb-5 max-w-[528px] text-xl text-[#636262] lg:mb-8">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
+              aliquam, purus sit amet luctus venenatis, lectus
+            </p>
+            <a
+              href="#"
+              className="inline-block rounded-full bg-[#c9fd02] px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white"
+            >
+              Get Started
+            </a>
+          </div>
+
+          {/* <div className="mx-auto mt-16 grid max-w-[1040px] grid-cols-2 gap-8 py-20 sm:grid-cols-3 sm:gap-12 md:grid-cols-5">
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a267_Microsoft%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26a_PayPal%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a268_Google%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a269_Chase%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26b_Walmart%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+          </div> */}
         </div>
       </section>
+
+      {/* ANOTHER HERO SECTION */}
+      <header className="relative">
+        <img
+          src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26e_Background%20Hero.svg"
+          alt=""
+          className="absolute -z-10 inline-block h-full w-full object-cover"
+        />
+
+        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-6 pb-4 text-4xl font-bold text-white md:text-6xl">
+              The Website You Want Without The Dev Time.
+            </h1>
+            <p className="mx-auto mb-5 max-w-[528px] text-xl text-[#636262] lg:mb-8">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
+              aliquam, purus sit amet luctus venenatis, lectus
+            </p>
+            <a
+              href="#"
+              className="inline-block rounded-full bg-[#c9fd02] px-8 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white"
+            >
+              Get Started
+            </a>
+          </div>
+
+          <div className="mx-auto mt-16 grid max-w-[1040px] grid-cols-2 gap-8 py-20 sm:grid-cols-3 sm:gap-12 md:grid-cols-5">
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a267_Microsoft%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26a_PayPal%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a268_Google%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a269_Chase%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+            <div className="mx-auto">
+              <img
+                src="https://uploads-ssl.webflow.com/646f65e37fe0275cfb808405/646f66cdeeb4ddfdae25a26b_Walmart%20Logo.svg"
+                alt=""
+                className="inline-block"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
     </>
   );
 };

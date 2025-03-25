@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="px-4 md:px-16 py-2 mx-center bg-[#27005D] top-0 z-50 sticky flex justify-between items-center "
+        className="px-4 md:px-16 py-2 mx-center top-0 z-50 sticky flex justify-between items-center "
         // style={{
         //   background: "rgba(255, 255, 255, 0.21)",
         //   boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",

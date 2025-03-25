@@ -6,10 +6,10 @@ const Rootlayout = () => {
     <>
       <Navbar />
       <div
-        className="h-full min-h-screen"
-        style={{
-          background: "radial-gradient(circle at top, #444af8 , #040e25)",
-        }}
+        className="h-full w-full"
+        // style={{
+        //   background: "radial-gradient(circle at top, #444af8 , #040e25)",
+        // }}
       >
         <Outlet />
       </div>
