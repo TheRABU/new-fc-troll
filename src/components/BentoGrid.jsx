@@ -1,14 +1,14 @@
-const items = [
-  "https://source.unsplash.com/random/400x400?architecture",
-  "https://source.unsplash.com/random/400x400?3d",
-  "https://source.unsplash.com/random/400x400?sneakers",
-  "https://source.unsplash.com/random/400x400?bag",
-  "https://source.unsplash.com/random/400x400?cosmetics",
-  "https://source.unsplash.com/random/400x400?watch",
-  "https://source.unsplash.com/random/400x400?controller",
-  "https://source.unsplash.com/random/400x400?skincare",
-  "https://source.unsplash.com/random/400x400?package",
-];
+// const items = [
+//   "https://source.unsplash.com/random/400x400?architecture",
+//   "https://source.unsplash.com/random/400x400?3d",
+//   "https://source.unsplash.com/random/400x400?sneakers",
+//   "https://source.unsplash.com/random/400x400?bag",
+//   "https://source.unsplash.com/random/400x400?cosmetics",
+//   "https://source.unsplash.com/random/400x400?watch",
+//   "https://source.unsplash.com/random/400x400?controller",
+//   "https://source.unsplash.com/random/400x400?skincare",
+//   "https://source.unsplash.com/random/400x400?package",
+// ];
 
 const BentoGrid = () => {
   return (
@@ -31,7 +31,7 @@ const BentoGrid = () => {
     //   </div>
     // </div>
     <>
-      <section class="bg-white">
+      <section class="bg-white px-2 lg:px-20 xl:px-36">
         <div class="py-4 px-2 mx-auto max-w-screen-xl sm:py-4 lg:px-6">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 h-full">
             <div class="col-span-2 sm:col-span-1 md:col-span-2 bg-gray-50 h-auto md:h-full flex flex-col">
@@ -62,7 +62,7 @@ const BentoGrid = () => {
                 />
                 <div class="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                 <h3 class="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">
-                  Excitement
+                  Entertainment
                 </h3>
               </a>
               <div class="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
@@ -77,7 +77,7 @@ const BentoGrid = () => {
                   />
                   <div class="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                   <h3 class="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">
-                    Entertainment
+                    Stats
                   </h3>
                 </a>
                 <a
