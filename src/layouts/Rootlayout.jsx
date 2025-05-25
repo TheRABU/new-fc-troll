@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import NewNav from "../components/NewNav";
 
 const Rootlayout = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
+      <NewNav />
       <div
         className="h-full w-full"
         // style={{
