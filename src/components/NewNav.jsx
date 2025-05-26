@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const NewNav = () => {
   const navLinks = [
@@ -8,16 +8,16 @@ const NewNav = () => {
 
   const renderLinks = (isMobile = false) =>
     navLinks.map((link) => (
-      <li key={link.path}>
+      <Link key={link.path}>
         <NavLink
           to={link.path}
           className={({ isActive }) =>
-            `font-medium ${isActive ? "text-primary" : ""}`
+            `font-medium px-5 ${isActive ? "text-primary" : ""}`
           }
         >
           {link.title}
         </NavLink>
-      </li>
+      </Link>
     ));
 
   return (

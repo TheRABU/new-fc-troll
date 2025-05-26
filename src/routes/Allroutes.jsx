@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Rootlayout from "../layouts/Rootlayout";
 import Home from "../pages/Homepage/Home";
+import GenerateImage from "../pages/GenerateImagePage/GenerateImage";
 
 const Allroutes = () => {
   const router = createBrowserRouter([
@@ -12,6 +13,10 @@ const Allroutes = () => {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/generate-image",
+          element: <GenerateImage />,
         },
       ],
     },
