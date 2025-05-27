@@ -7,13 +7,13 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCjJC-ReNwYnttYt42hBtxDK7Yrm0MTAJg",
-  authDomain: "fc-trollfootball.firebaseapp.com",
-  projectId: "fc-trollfootball",
-  storageBucket: "fc-trollfootball.firebasestorage.app",
-  messagingSenderId: "540073328519",
-  appId: "1:540073328519:web:d45f20c1f0859a4f135d22",
-  measurementId: "G-B1MSGK1K7Q",
+  apiKey: "AIzaSyDvryDIAMBzFVdjgekb5ohHJRFzkFKeYxk",
+  authDomain: "fctroll-football.firebaseapp.com",
+  projectId: "fctroll-football",
+  storageBucket: "fctroll-football.firebasestorage.app",
+  messagingSenderId: "253374039790",
+  appId: "1:253374039790:web:8754fc49069b235cf855ff",
+  measurementId: "G-LR11CRY0GD",
 };
 
 // Initialize Firebase
