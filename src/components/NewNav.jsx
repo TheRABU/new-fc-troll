@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import logo from "/logo.png";
 
 const NewNav = () => {
   const navLinks = [
@@ -48,7 +49,15 @@ const NewNav = () => {
               {renderLinks(true)}
             </ul>
           </div>
-          <NavLink to="/" className="btn btn-ghost text-xl">
+          <NavLink
+            to="/"
+            className="text-xl cursor-pointer flex items-center gap-2"
+          >
+            <img
+              src={logo}
+              alt="logo"
+              className="h-8 md:h-10 lg:h-12 w-auto rounded-xl"
+            />
             TrollFC
           </NavLink>
         </div>

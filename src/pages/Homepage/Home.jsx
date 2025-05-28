@@ -1,6 +1,7 @@
 import heroBG from "../../assets/messibg.jpg";
 import ronaldoBG from "../../assets/cr7madrid.jpg";
 import neymarBG from "../../assets/neymar2.png";
+import messiBG2 from "../../assets/messibg2.jpg";
 import BentoGrid from "../../components/BentoGrid";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -48,10 +49,11 @@ const Home = () => {
         className="hero w-full min-h-screen bg-cover bg-center bg-fixed relative flex items-center justify-center"
         style={{
           backgroundImage: `url(${heroBG})`,
+          opacity: 50,
         }}
       >
         {/* Overlay */}
-        {/* <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div> */}
+        {/* <div className="absolute inset-0 bg-black bg-opacity-30 z-0"></div> */}
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
           <div className="mx-auto max-w-3xl text-center">
