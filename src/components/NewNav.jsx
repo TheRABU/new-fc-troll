@@ -1,11 +1,26 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 import logo from "/logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 const NewNav = () => {
+  const { logout, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const navLinks = [
     { title: "Home", path: "/" },
     { title: "Generate Image", path: "/generate-image" },
   ];
+
+  const signOut = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   const renderLinks = (isMobile = false) =>
     navLinks.map((link) => (
@@ -23,7 +38,7 @@ const NewNav = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-100 shadow-sm md:px-5 xl:px-20">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -66,9 +81,51 @@ const NewNav = () => {
           <ul className="menu menu-horizontal px-1">{renderLinks()}</ul>
         </div>
 
-        <div className="navbar-end">
-          <a className="btn">Button</a>
-        </div>
+        {user ? (
+          <div className="flex gap-2">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={
+                      user.photoURL
+                        ? `${user.photoURL}`
+                        : `https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp`
+                    }
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <button onClick={signOut}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="navbar-end ">
+            <Link to={"/login"}>
+              <span className="text-blue-700 font-medium">Login / Signup</span>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
