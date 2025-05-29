@@ -7,6 +7,10 @@ import {
   onAuthStateChanged,
   getAuth,
   updateProfile,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updatePassword,
+  updateEmail,
 } from "firebase/auth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import app from "../firebase/firebase.config";
@@ -24,13 +28,32 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
+  const signIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateUserProfile = (user, name) => {
+    setLoading(true);
+    return updateProfile(user, {
       displayName: name,
-      photoURL: photo,
+      photoURL: "https://example.com/jane-q-user/profile.jpg",
     })
       .then(() => {})
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const resetPasswordWithEmail = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+  // update email address
+  const updateUserEmail = (newEmail) => {
+    return updateEmail(auth.currentUser, newEmail);
+  };
+  // update password
+  const updateUserPassword = (newPassword) => {
+    return updatePassword(user, newPassword);
   };
   // Google login
   const googleLogin = () => {
@@ -45,25 +68,24 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        setLoading(false);
-        console.log(currentUser);
       }
-
-      //   if (currentUser) {
-      //     // get token and store client
-      //     const userInfo = {
-      //       email: currentUser.email,
-      //     };
-      //     const res = await axiosPublic.post(`/api/jwt/generateToken`, userInfo);
-      //     if (res.data.token) {
-      //       localStorage.setItem("access-token", res.data.token);
-      //       setLoading(false);
-      //     }
-      //   } else {
-      //     // remove token if stored on the client side (localstorage/client memory)
-      //     localStorage.removeItem("access-token");
-      //     setLoading(false);
-      //   }
+      if (currentUser) {
+        // get token and store client
+        const userInfo = {
+          email: currentUser.email,
+          name: currentUser.displayName,
+          photoURL: currentUser.photoURL,
+        };
+        const res = await axiosPublic.post(`/api/users/register`, userInfo);
+        if (res.data.token) {
+          localStorage.setItem("access-token", res.data.token);
+        }
+      } else {
+        // remove token if stored on the client side (localstorage/client memory)
+        localStorage.removeItem("access-token");
+        setLoading(false);
+        setUser(null);
+      }
     });
 
     return () => unsubscribe();
@@ -75,6 +97,11 @@ const AuthProvider = ({ children }) => {
     logout,
     loading,
     updateUserProfile,
+    signIn,
+    CreateNewUser,
+    resetPasswordWithEmail,
+    updateUserEmail,
+    updateUserPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

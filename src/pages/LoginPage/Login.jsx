@@ -1,10 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { animate, motion } from "motion/react";
 
 const Login = () => {
+  const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
+
   const pageVariants = {
     initial: {
       opacity: 0,
@@ -29,14 +34,42 @@ const Login = () => {
     },
   };
 
-  const { googleLogin } = useContext(AuthContext);
+  const { googleLogin, signIn } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleLoginEmailPass = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password)
+      .then((result) => {
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+          photoURL: result.user?.photoURL,
+          uid: result.user?.uid,
+        };
+        // console.log("User signed in successfully", userInfo);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError("Invalid email or password");
+        throw new error();
+      });
+  };
+
+  // Google login
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
         const userInfo = {
           email: result.user?.email,
           name: result.user?.displayName,
+          photoURL: result.user?.photoURL,
+          uid: result.user?.uid,
         };
         console.log(userInfo);
         navigate("/");
@@ -160,7 +193,7 @@ const Login = () => {
               </button>
             </div>
 
-            <form>
+            <form onSubmit={handleLoginEmailPass}>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label
@@ -171,6 +204,7 @@ const Login = () => {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="text"
                     placeholder="Username or email address"
                     className="w-full h-12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -184,12 +218,24 @@ const Login = () => {
                   >
                     Enter your Password
                   </label>
-                  <input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    className="w-full h-12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+                  <div className="relative">
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPass ? "text" : "password"}
+                      placeholder="Password"
+                      className="w-full h-12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <span
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? <FaEye /> : <FaEyeSlash />}
+                    </span>
+                    <span className="text-sm font-medium text-red-700">
+                      {error}
+                    </span>
+                  </div>
                   <div className="text-right">
                     <a href="#" className="text-blue-500 text-sm">
                       Forgot Password

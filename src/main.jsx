@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Allroutes from "./routes/Allroutes.jsx";
 import AuthProvider from "./providers/AuthContextprovider.jsx";
 

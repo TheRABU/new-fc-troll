@@ -1,7 +1,19 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { delay, motion } from "motion/react";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+
 const Signup = () => {
+  const [showPass, setShowPass] = useState(false);
+  const { CreateNewUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const pageVariants = {
     initial: {
       opacity: 0,
@@ -25,6 +37,49 @@ const Signup = () => {
       },
     },
   };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+      CreateNewUser(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateUserProfile(user, name)
+            .then(() => {
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Registration Successful!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate(location?.state ? location.state : "/");
+            })
+            .catch((error) =>
+              console.log(
+                "Error at calling updateUserProfile Signup::",
+                error.message
+              )
+            );
+        })
+        .catch((error) => console.log(error.message));
+    } catch (error) {
+      console.log(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        toast.error(
+          "This email is already in use. Please try logging in or use a different email."
+        );
+      } else {
+        toast.error(`Registration failed: ${error.message}`);
+      }
+    }
+  };
+
   return (
     <>
       <motion.div
@@ -37,7 +92,7 @@ const Signup = () => {
         <div className="p-8 md:p-12 md:w-1/2 flex items-center justify-center">
           <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8">
             <div className="text-right mb-4">
-              <span className="text-gray-500">Already got an account?</span>
+              <span className="text-gray-500">Already got an account? </span>
               <Link to={"/login"} className="text-blue-500 font-medium">
                 Login
               </Link>
@@ -53,7 +108,7 @@ const Signup = () => {
               </button>
             </div>
 
-            <form>
+            <form onSubmit={handleSignup}>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label
@@ -91,12 +146,20 @@ const Signup = () => {
                   >
                     Enter your Password
                   </label>
-                  <input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    className="w-full h-12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+                  <div className="relative">
+                    <input
+                      id="password"
+                      type={showPass ? "text" : "password"}
+                      placeholder="Password"
+                      className="w-full h-12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <span
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? <FaEye /> : <FaEyeSlash />}
+                    </span>
+                  </div>
                 </div>
 
                 <button

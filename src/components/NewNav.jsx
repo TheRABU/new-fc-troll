@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import logo from "/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-
+import userImage from "../assets/userIMG.jpg";
 const NewNav = () => {
   const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -104,7 +104,7 @@ const NewNav = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
-                <li>
+                {/* <li>
                   <a className="justify-between">
                     Profile
                     <span className="badge">New</span>
@@ -112,7 +112,7 @@ const NewNav = () => {
                 </li>
                 <li>
                   <a>Settings</a>
-                </li>
+                </li> */}
                 <li>
                   <button onClick={signOut}>Logout</button>
                 </li>
