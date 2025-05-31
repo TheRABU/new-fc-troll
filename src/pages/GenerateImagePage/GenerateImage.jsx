@@ -4,6 +4,7 @@ import bgImage from "../../assets/genBg.jpg";
 import bgImage2 from "../../assets/genBg2.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import { axiosPublic } from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
 
 const imageTypes = [
   "HD painting",
@@ -68,6 +69,8 @@ const GenerateImage = () => {
   const [error, setError] = useState(null);
   // const [keywordSuggestions, setKeywordSuggestions] = useState([]);
   // const [fetchingSuggestions, setFetchingSuggestions] = useState(false);
+
+  const { user } = useAuth();
 
   // Handlers for selection buttons
   const handlePreferenceSelect = (preference) => {
@@ -140,11 +143,14 @@ const GenerateImage = () => {
     setGeneratedImages([]);
 
     try {
-      const response = await axiosPublic.post("/api/generate-image", {
-        userPrompt: prompt,
-        imageType: selectedImageType,
-        userPreference: selectedPreference.promptModifier,
-      });
+      const response = await axiosPublic.post(
+        `/api/generate-image/${user?.email}`,
+        {
+          userPrompt: prompt,
+          imageType: selectedImageType,
+          userPreference: selectedPreference.promptModifier,
+        }
+      );
 
       // Check if imageUrl exists in the response from the backend
       if (response.data && response.data.imageUrl) {
