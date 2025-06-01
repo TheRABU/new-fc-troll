@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import bgImage from "../../assets/genBg.jpg";
-import bgImage2 from "../../assets/genBg2.jpg";
-import { ToastContainer, toast } from "react-toastify";
+import bgImage2 from "../../assets/genBg2.webp";
+
 import { axiosPublic } from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
+import { toast, Toaster } from "react-hot-toast";
 
 const imageTypes = [
   "HD painting",
@@ -67,64 +68,17 @@ const GenerateImage = () => {
   const [generating, setGenerating] = useState(false);
   const [generatedImages, setGeneratedImages] = useState([]);
   const [error, setError] = useState(null);
-  // const [keywordSuggestions, setKeywordSuggestions] = useState([]);
-  // const [fetchingSuggestions, setFetchingSuggestions] = useState(false);
 
   const { user } = useAuth();
 
   // Handlers for selection buttons
   const handlePreferenceSelect = (preference) => {
     setSelectedPreference(preference);
-    setPrompt("");
   };
 
   const handleImageTypeSelect = (type) => {
     setSelectedImageType(type);
   };
-
-  // Callback function for fetching keyword suggestions
-  // const fetchKeywordSuggestions = useCallback(
-  //   async (currentPrompt, currentPreferenceDescription) => {
-  //     if (!currentPrompt.trim()) {
-  //       setKeywordSuggestions([]);
-  //       return;
-  //     }
-  //     setFetchingSuggestions(true);
-  //     try {
-  //       const response = await axios.post(
-  //         "http://localhost:5000/api/suggest-keywords",
-  //         {
-  //           prompt: currentPrompt,
-  //           // Send the full description for better AI context
-  //           preference: currentPreferenceDescription,
-  //         }
-  //       );
-  //       setKeywordSuggestions(response.data.suggestions);
-  //     } catch (err) {
-  //       console.error("Failed to fetch keyword suggestions:", err);
-  //       // You can add a subtle error message for suggestions if desired
-  //     } finally {
-  //       setFetchingSuggestions(false);
-  //     }
-  //   },
-  //   []
-  // );
-
-  // Debounced effect for keyword suggestions
-  // useEffect(() => {
-  //   const handler = setTimeout(() => {
-  //     // Only fetch if a preference is selected and there's a prompt
-  //     if (selectedPreference && prompt.trim()) {
-  //       fetchKeywordSuggestions(prompt, selectedPreference.description);
-  //     } else {
-  //       setKeywordSuggestions([]); // Clear suggestions if no prompt or preference
-  //     }
-  //   }, 700); // Debounce time: fetch suggestions 700ms after user stops typing
-
-  //   return () => {
-  //     clearTimeout(handler); // Clear timeout if prompt or preference changes before the delay
-  //   };
-  // }, [prompt, selectedPreference, fetchKeywordSuggestions]); // Re-run when prompt, preference, or fetch function changes
 
   // Main submission handler for image generation
   const handleSubmit = async (e) => {
@@ -161,6 +115,7 @@ const GenerateImage = () => {
             caption: response.data.text || prompt,
           },
         ]);
+        setPrompt("");
       } else {
         setError(
           "Image generation response was missing an image URL. Please try again."
@@ -178,13 +133,27 @@ const GenerateImage = () => {
   };
 
   // Download functionality
-  const handleDownload = (imageUrl) => {
-    const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = `football-troll-meme-${Date.now()}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async (imageUrl) => {
+    try {
+      const response = await fetch(imageUrl, {
+        mode: "cors",
+      });
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = `football-troll-meme-${Date.now()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error("Download failed:", err);
+      toast.error("Failed to download image. Please try again.");
+    }
   };
 
   // Share by copying link functionality
@@ -192,15 +161,7 @@ const GenerateImage = () => {
     navigator.clipboard
       .writeText(imageUrl)
       .then(() => {
-        toast.success("Image Link copied to Clipboard!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "light",
-          transition: "Bounce",
-        });
+        toast.success("Link copied to clipboard!");
       })
       .catch((err) => console.error("Failed to copy link:", err));
   };
@@ -210,7 +171,7 @@ const GenerateImage = () => {
       <div
         className="pt-10 p-4 min-h-screen bg-gray-900"
         style={{
-          backgroundImage: `url(${bgImage})`,
+          backgroundImage: `url(${bgImage2})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -374,9 +335,9 @@ const GenerateImage = () => {
                       className="w-full h-auto max-h-96 object-contain bg-gray-100 p-2 rounded-t-xl" // object-contain to prevent image cropping
                     />
                     <div className="p-4 flex flex-col gap-3">
-                      <p className="text-sm text-gray-700 italic">
+                      {/* <p className="text-sm text-gray-700 italic">
                         "{image.caption}"
-                      </p>
+                      </p> */}
                       <div className="flex gap-3">
                         <button
                           onClick={() => handleDownload(image.url)}
@@ -400,7 +361,7 @@ const GenerateImage = () => {
           )}
         </div>
       </div>
-      <ToastContainer />
+      <Toaster />
     </>
   );
 };

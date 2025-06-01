@@ -1,5 +1,5 @@
-import heroBG from "../../assets/messibg.jpg";
-import ronaldoBG from "../../assets/cr7madrid.jpg";
+import heroBG from "../../assets/messibg.webp";
+import ronaldoBG from "../../assets/cr7madrid.webp";
 import neymarBG from "../../assets/neymar2.png";
 import messiBG2 from "../../assets/messibg2.jpg";
 import BentoGrid from "../../components/BentoGrid";
